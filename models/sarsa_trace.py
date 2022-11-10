@@ -134,14 +134,6 @@ class SarsaTableTraceModel(AbstractModel):
             logging.info("episode: {:d}/{:d} | status: {:4s} | e: {:.5f}"
                          .format(episode, episodes, status.name, exploration_rate))
 
-            if episode % check_convergence_every == 0:
-                # check if the current model does win from all starting cells
-                # only possible if there is a finite number of starting states
-                w_all, win_rate = self.environment.check_win_all(self)
-                win_history.append((episode, win_rate))
-                if w_all is True and stop_at_convergence is True:
-                    logging.info("won from all start cells, stop learning")
-                    break
 
             exploration_rate *= exploration_decay  # explore less as training progresses
 
